@@ -1,5 +1,6 @@
-import Register from './components/Register';
-import './style.scss'
+import Register from "./components/Register";
+import "./style.scss";
+
 function App() {
   return (
     <div className="App">
