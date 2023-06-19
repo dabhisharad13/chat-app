@@ -185,7 +185,6 @@
         color: white;
 
         .chatIcons {
-
           display: flex;
           gap: 10px;
 
@@ -194,6 +193,10 @@
             cursor: pointer;
           }
         }
+      }
+      .messages {
+        color: white;
+        padding: 10px;
       }
     }
   }
