@@ -32,13 +32,13 @@ const Register = () => {
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
           await updateProfile(res.user, {
-            userName,
+            displayName: userName,
             photoURL: downloadURL,
           });
 
           await setDoc(doc(db, "users", res.user.uid), {
             uid: res.user.uid,
-            userName,
+            displayName: userName,
             email,
             photoURL: downloadURL,
           });
@@ -55,7 +55,7 @@ const Register = () => {
     const userName = values.name[0];
     const email = values.email[0];
     const password = values.password[0];
-    const avatar = values.avatar;
+    const avatar = event.target[3].files[0];
 
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password);
