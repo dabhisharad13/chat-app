@@ -5,8 +5,10 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, storage, db } from "../js/firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
+import { useNavigate } from "react-router";
 
 const Register = () => {
+  const navigate = useNavigate();
   const [values, setValues] = useState({
     name: "",
     email: "",
@@ -41,6 +43,7 @@ const Register = () => {
           });
 
           await setDoc(doc(db, "userChats", res.user.uid), {});
+          navigate("/");
         });
       }
     );
