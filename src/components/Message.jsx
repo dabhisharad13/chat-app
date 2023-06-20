@@ -4,7 +4,7 @@ import '../scss/message.scss';
 
 const Message = () => {
   return (
-    <div className="message">
+    <div className="message owner">
       <div className="messageInfo">
         <img src={tempImg} alt="" />
         <span>Just now</span>
