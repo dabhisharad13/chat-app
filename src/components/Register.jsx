@@ -19,6 +19,31 @@ const Register = () => {
     setValues({ ...values, [event.target.name]: [event.target.value] });
   };
 
+  const handleInsertUser = (res, userName, email, avatar) => {
+    const storageRef = ref(storage, userName);
+    const uploadTask = uploadBytesResumable(storageRef, avatar);
+    uploadTask.on(
+      (error) => {
+        setSignUpError(true);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+          await updateProfile(res.user, {
+            userName,
+            photoURL: downloadURL,
+          });
+
+          await setDoc(doc(db, "users", res.user.uid), {
+            uid: res.user.uid,
+            userName,
+            email,
+            photoURL: downloadURL,
+          });
+        });
+      }
+    );
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const userName = values.name[0];
@@ -28,29 +53,7 @@ const Register = () => {
 
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password);
-
-      const storageRef = ref(storage, userName);
-      const uploadTask = uploadBytesResumable(storageRef, avatar);
-      uploadTask.on(
-        (error) => {
-          setSignUpError(true);
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-            await updateProfile(res.user, {
-              userName,
-              photoURL: downloadURL,
-            });
-
-            await setDoc(doc(db, "users", res.user.uid), {
-              uid: res.user.uid,
-              userName,
-              email,
-              photoURL: downloadURL,
-            });
-          });
-        }
-      );
+      handleInsertUser(res, userName, email, avatar);
     } catch (err) {
       setSignUpError(true);
     }
