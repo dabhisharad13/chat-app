@@ -1,5 +1,6 @@
 import React from "react";
 import AddDisplay from "../assets/images/addDisplay.png";
+import "../scss/register.scss";
 
 const Register = () => {
   return (

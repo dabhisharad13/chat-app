@@ -1,10 +1,13 @@
 import Register from "./components/Register";
-import "./style.scss";
+import Home from "./components/Home";
+import Login from "./components/Login";
+
+
 
 function App() {
   return (
     <div className="App">
-      <Register/>
+      <Home/>
     </div>
   );
 }

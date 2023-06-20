@@ -2,6 +2,7 @@ import React from "react";
 import More from "../assets/images/more.png";
 import Messages from "./Messages";
 import Input from "./Input";
+import '../scss/chat.scss';
 
 const Chat = () => {
   return (

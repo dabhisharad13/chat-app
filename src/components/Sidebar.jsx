@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "./Navbar";
 import Search from "./Search";
 import Chats from "./Chats";
+import '../scss/sidebar.scss';
 
 const Sidebar = () => {
   return (

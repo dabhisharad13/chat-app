@@ -1,6 +1,7 @@
 import React from "react";
 import SendImage from "../assets/images/Send.png";
 import Attach from "../assets/images/Link.png";
+import '../scss/input.scss';
 
 const Input = () => {
   return (

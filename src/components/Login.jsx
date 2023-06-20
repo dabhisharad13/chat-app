@@ -1,11 +1,11 @@
 import React from "react";
-
+import '../scss/login.scss'
 const Login = () => {
   return (
     <div className="formContainer">
       <div className="formWrapper">
-        <span className="register-logo-title">Fire Chat</span>
-        <span className="register-title">Register</span>
+        <span className="login-logo-title">Fire Chat</span>
+        <span className="login-title">Register</span>
         <form action="">
           <input type="email" placeholder="Email" />
           <input type="password" placeholder="Password" />
