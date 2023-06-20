@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import AddDisplay from "../assets/images/addDisplay.png";
 import "../scss/register.scss";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth, storage } from "../js/firebase";
+import { auth, storage, db } from "../js/firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
 
@@ -19,28 +19,18 @@ const Register = () => {
     setValues({ ...values, [event.target.name]: [event.target.value] });
   };
 
-  const handleImageUpload = (event) => {};
-
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const userName = values.name;
+    const userName = values.name[0];
     const email = values.email[0];
     const password = values.password[0];
     const avatar = values.avatar;
 
     try {
-      const res = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      ).then(() => {
-        console.log(res);
-      });
+      const res = await createUserWithEmailAndPassword(auth, email, password);
 
       const storageRef = ref(storage, userName);
-
       const uploadTask = uploadBytesResumable(storageRef, avatar);
-
       uploadTask.on(
         (error) => {
           setSignUpError(true);
@@ -49,6 +39,13 @@ const Register = () => {
           getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
             await updateProfile(res.user, {
               userName,
+              photoURL: downloadURL,
+            });
+
+            await setDoc(doc(db, "users", res.user.uid), {
+              uid: res.user.uid,
+              userName,
+              email,
               photoURL: downloadURL,
             });
           });
