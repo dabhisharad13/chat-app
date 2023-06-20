@@ -6,6 +6,7 @@ import { auth, storage, db } from "../js/firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -102,7 +103,9 @@ const Register = () => {
           <button>Sign up!</button>
         </form>
         {signUpError && <span> Error</span>}
-        <p>Already registered? Login</p>
+        <p>
+          Already registered? <Link to="/login">Login</Link>
+        </p>
       </div>
     </div>
   );
