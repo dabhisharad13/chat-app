@@ -11,6 +11,7 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "../js/firebase";
+import Cancle from "../assets/images/cancle.png";
 import "../scss/search.scss";
 import { AuthContext } from "../context/AuthContext";
 
@@ -34,7 +35,6 @@ const Search = () => {
       const querySnapshot = await getDocs(q);
       if (querySnapshot.size !== 0) {
         querySnapshot.forEach((doc) => {
-          console.log("DOC", doc.data());
           setUser(doc.data());
         });
       } else {
@@ -89,6 +89,11 @@ const Search = () => {
     }
   };
 
+  const handleClear = () => {
+    setNoUserFound(false);
+    setUserName("");
+  };
+  
   return (
     <div className="search">
       <div className="searchForm">
@@ -99,6 +104,14 @@ const Search = () => {
           onChange={(e) => setUserName(e.target.value)}
           value={userName}
         />
+        <div className="clear-search">
+          <img
+            className="clear-search-image"
+            src={Cancle}
+            alt=""
+            onClick={() => handleClear()}
+          ></img>
+        </div>
       </div>
       {noUserFound && <span className="no-user-found">No user found!</span>}
       {err && <span>Issue while searching</span>}

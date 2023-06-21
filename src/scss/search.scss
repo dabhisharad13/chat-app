@@ -3,8 +3,10 @@
 
   .searchForm {
     padding: 10px;
-
+    display: flex;
+    flex-direction: row;
     input {
+      width: 100%;
       background-color: transparent;
       border: none;
       color: white;
@@ -15,6 +17,10 @@
     }
   }
 
+  .clear-search-image {
+    cursor: pointer;
+    width: 20px;
+  }
   .no-user-found {
     display: flex;
     color: white;
