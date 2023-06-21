@@ -1,17 +1,28 @@
-import React from "react";
-import tempImg from "../assets/images/temp.jpeg"
-import '../scss/message.scss';
+import React, { useContext } from "react";
+import tempImg from "../assets/images/temp.jpeg";
+import { UserChatContext } from "../context/UserChat";
+import { AuthContext } from "../context/AuthContext";
 
-const Message = () => {
+import "../scss/message.scss";
+
+const Message = ({ message }) => {
+  const { currentUser } = useContext(AuthContext);
+  const { data } = useContext(UserChatContext);
+
   return (
-    <div className="message owner">
+    <div className={`message ${message.senderId === currentUser.uid && "owner"}`}>
       <div className="messageInfo">
-        <img src={tempImg} alt="" />
-        <span>Just now</span>
+        <img
+          src={
+            message.senderId === currentUser.uid
+              ? currentUser.photoURL
+              : data.user.photoURL
+          }
+          alt=""
+        />
       </div>
       <div className="messageContent">
-        <p>Hello</p>
-        <img src={tempImg} alt="" />
+        <p>{message.text}</p>
       </div>
     </div>
   );
