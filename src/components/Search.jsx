@@ -18,6 +18,7 @@ const Search = () => {
   const [userName, setUserName] = useState("");
   const [user, setUser] = useState(null);
   const [err, setErr] = useState(false);
+  const [noUserFound, setNoUserFound] = useState(false);
 
   const { currentUser } = useContext(AuthContext);
 
@@ -28,10 +29,18 @@ const Search = () => {
     );
 
     try {
+      setNoUserFound(false);
+      setErr(false);
       const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        setUser(doc.data());
-      });
+      if (querySnapshot.size !== 0) {
+        querySnapshot.forEach((doc) => {
+          console.log("DOC", doc.data());
+          setUser(doc.data());
+        });
+      } else {
+        setNoUserFound(true);
+        setUser(null);
+      }
     } catch (err) {
       setErr(true);
     }
@@ -73,10 +82,11 @@ const Search = () => {
           [combinedID + ".date"]: serverTimestamp(),
         });
       }
-    } catch (err) {}
-
-    setUser(null);
-    setUserName("");
+      setUser(null);
+      setUserName("");
+    } catch (err) {
+      setErr(true);
+    }
   };
 
   return (
@@ -90,7 +100,8 @@ const Search = () => {
           value={userName}
         />
       </div>
-      {err && <span>No User found</span>}
+      {noUserFound && <span className="no-user-found">No user found!</span>}
+      {err && <span>Issue while searching</span>}
       {user && (
         <div className="userChat" onClick={handleSelect}>
           <img src={user.photoURL} alt="" />

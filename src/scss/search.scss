@@ -1,5 +1,5 @@
 .search {
-  border-bottom: 1px solid rgb(255, 255, 255);
+  border-bottom: 1px solid rgb(14, 57, 64);
 
   .searchForm {
     padding: 10px;
@@ -13,5 +13,16 @@
         color: white;
       }
     }
+  }
+
+  .no-user-found {
+    display: flex;
+    color: white;
+    align-content: center;
+    justify-content: center;
+  }
+
+  .userChat {
+    border-top: 1px solid rgb(14, 57, 64);
   }
 }
