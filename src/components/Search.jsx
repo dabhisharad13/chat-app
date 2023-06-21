@@ -44,7 +44,7 @@ const Search = () => {
   const handleSelect = async () => {
     //check if group chat exist, else create one
     const combinedID =
-      currentUser.id > user.id
+      currentUser.uid > user.uid
         ? currentUser.uid + user.uid
         : user.uid + currentUser.uid;
 

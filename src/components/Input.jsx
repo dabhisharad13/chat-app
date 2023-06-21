@@ -13,7 +13,7 @@ import { v4 as uuid } from "uuid";
 import "../scss/input.scss";
 
 const Input = () => {
-  const [text, setText] = useState();
+  const [text, setText] = useState("");
   const [textError, setTextError] = useState(false);
   const { currentUser } = useContext(AuthContext);
   const { data } = useContext(UserChatContext);
